@@ -1,10 +1,12 @@
 <?php
 header("Access-Control-Allow-Origin: *");
+include "home.html";
+
 
 $traceback = $_SERVER['HTTP_REFERER'];
 
 
-include "home.html";
+
 
 //echo $traceback;
  ?>
