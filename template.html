@@ -1,0 +1,88 @@
+<script type="text/javascript">  
+  function MJ_checkOverlay(form) {
+  var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    
+  var address = form.ads_survey_email.value;	
+  if(reg.test(address) !== false) { 
+    form.method = "post";
+    return true; 
+  }
+  else {
+    alert("Please enter a valid email address.");
+    form.ads_survey_email.focus();
+    return false;
+  }
+}
+</script>
+
+<style type="text/css">
+<!-- 
+#container {
+	margin:0;
+	padding:0;
+	z-index:20000001;
+}
+
+#container p, #container  ul, #container  table, #container fieldset {margin: 0;}
+
+div#DFP_OVERLAY_LAYER {transform: 
+translate3d(0,0,0);position:fixed;
+    position:fixed;
+    width:640px;
+    height: 480px;
+    z-index:20000002;
+    background-image: url('SCA-20220401-MOTHER-JONES-Overlay1_SignPledge.jpeg');/*need to replace image name */
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-color: #FFFFFF;
+}
+
+
+-->
+</style>
+
+<div class="container" id="DFP_OVERLAY_CONTAINER">
+
+<div id="DFP_OVERLAY_LAYER" class="content">
+ 
+<form action="https://link.motherjones.com/s" method="post" onsubmit="return MJ_checkOverlay(this);" style="margin-top: 315px;  margin-left:40px; width: 560px;"> <!-- Currently pointing at the live site's link; use "Preview" in DFP for tests. If you'd like to test on develop.motherjones.com change to http://linkdev.motherjones.com/s !-->
+ 
+  <input include_blank="true" type="hidden" name="lists[ads_SurveyList_forClients]" data-type="boolean" value="true" />
+  
+   <input type="image" name="submit" value="Submit" src="SCA-20220401-MOTHER-JONES-Overlay1_SignPledge_bt.png" style="margin-left: 303px; "> <!-- Put submit button here !--><br />
+
+  <!-- Email !-->
+
+	<input name="vars[first_name]" id="ads_survey_first_name" value="First name" type="text" style="margin-left: 4px; margin-top: 60px; margin-right: 0px; padding-left: 5px; width: 175px;float:left;border:0px solid #999999;height:39px; border-radius: 15px; color:#999999; text-align: left; font-size: 16px;" onclick="if (this.value == 'First name') { this.value = '';}" onblur="if(this.value == '') {this.value='First name';}">
+
+	<input name="vars[last_name]" id="ads_survey_last_name" value="Last name" type="text" style="margin-left: 12px; margin-top: 60px; padding-left: 5px; width: 175px;float:left;border:0px solid #999999;height:39px;color:#999999; text-align: left; font-size: 16px; border-radius: 15px;" onclick="if (this.value == 'Last name') { this.value = '';}" onblur="if(this.value == '') {this.value='Last name';}">
+ 
+ 	<input include_blank="true" name="email"xds id="ads_survey_email" value="Email address" type="text" style="margin-left: 14px; margin-right: 0px; margin-top: 60px; padding-left: 5px; width: 175px;float:left;border:0px solid #999999;height:39px;color:#999999; text-align: left; font-size: 16px; border-radius: 15px;" onclick="if (this.value == 'Email address') { this.value = '';}" onblur="if(this.value == '') {this.value='Email address';}">
+
+
+
+  <input type="hidden" id="st_timestamp" name="vars[ads_Survey_RobCathyTestApr22_Timestamp]" value="temp" data-type="date" style="display: none;"/>
+
+	<input type="hidden" name="redirect" value="https://www.motherjones.com/thank-you-embed/">
+	
+	  <input type="hidden" name="vars[ads_Survey_RobCathyTestApr22]" value="true" /> <!--IMPORTANT: Put the name of the identifying variable here !-->
+<br /><br /><br />
+</form>
+
+</div>
+</div>
+
+<script type="text/javascript">
+
+ function dateConverter(UNIX_timestamp){
+  let dateConversion = new Date().toISOString();
+  var dateConversionString = dateConversion.toString();
+ var shortenedDate = dateConversionString.slice(0,10);
+  return shortenedDate;
+}
+
+document.getElementById("st_timestamp").value = dateConverter(Date.now());
+
+
+
+</script>
