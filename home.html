@@ -1,21 +1,82 @@
-<h1>Hello, I am a HAL 9000 intelligent thinking machine, or a VALIS (Vast Artificial Intelligence System). I am here to help you in your quest.</h1>
-<label for="input1">Something goes here</label>
-<input type="text" value="" placeholder="Something goes here" id="input1" name="input1">
+<html>
+	<head>
+		<title>Home</title>
+	<style>
+		fieldset {width:480px;}
+		#submit {margin: 10px auto;
+			text-align:center;
+			display:block;}
+	</style>
+	<script>
+		function countTheFields() {
+			this_var = document.querySelectorAll('input[type="checkbox"]:checked').length;
+			document.getElementById("checked_num").value = this_var;
+			console.log(this_var);
+			unchecked_array = "";
+			
+			if(document.getElementById("landscape_m").checked) {
+				if(this_var >= 2) {
+					unchecked_array = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
+					for(i = 0; i < unchecked_array.length; i++) {
+						document.getElementById(unchecked_array[i].id).disabled = true;
+					}
+					document.getElementById("error_msg").innerHTML = "<span style=\"color:red;font-weight:bold;\">You have chosen landscape format. You may only choose a maximum of two input fields</span>";
+				}
+				else {
+					unchecked_array = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
+					for(i = 0; i < unchecked_array.length; i++) {
+						document.getElementById(unchecked_array[i].id).disabled = false;
+					}
+					document.getElementById("error_msg").innerHTML = "";
+				}
+			}
+		}
+		
+		function uncheckAll() {
+			this_var = document.querySelectorAll('input[type="checkbox"]:checked');
+			
+			for(x = 0; x < this_var.length; x++) {
+				document.getElementById(this_var[x].id).checked = false;
+			}
+		}
+	</script>
+	</head>
+<h1>Hello, I am a HAL 9000 intelligent thinking machine or VALIS (Vast Artificial Intelligence System). I am here to help you in your quest.</h1>
+<form action="processor.php" method="post">
+	<!-- size and orientation picker -->
+	<fieldset>
+		<legend>Choose a layout:</legend>
+		<p><label for="landscape_m">Landscape size: 640x380</label>
+		<input type="radio" value="640x380" id="landscape_m" name="ad_size" onclick="uncheckAll();"></p>
+		<p><label for="portrait_m">Portrait size: 320x480</label>
+		<input type="radio" value="320x480" id="portrait_m" name="ad_size" onclick="uncheckAll();"></p>
+	</fieldset>
+	<fieldset>
+		<legend>Input image name:</legend>
+		<p><input type="text" id="image_name1" value="" placeholder="image variable name from sfg" name="image_name1" size="30"></p>
+	</fieldset>
+	<fieldset>
+		<legend>Advertiser Text:</legend>
+		<textarea id="advert_text" name="advert_text" rows="3" cols="50"></textarea>
+	</fieldset>
 
-<!-- size and orientation picker -->
-<label for="landscape_m">Landscape size: 640x380</label>
-<input type="radio" value="640x380" id="landscape_m" name="ad_size">
-<label for="portrait_m">Portrait size: 320x480</label>
-<input type="radio" value="320x480" id="portrait_m" name="ad_size">
-
-<!-- input fields chooser -->
-<label for="email">Email</label>
-<input type="checkbox" name="input_fields" id="email" value="Email">
-<label for="first_name">First Name</label>
-<input type="checkbox" name="input_fields" id="first_name" value="First Name">
-<label for="last_name">Last Name</label>
-<input type="checkbox" name="input_fields" id="last_name" value="Last Name">
-<label for="zip_code">Zip Code</label>
-<input type="checkbox" name="input_fields" id="zip_code" value="Zip Code">
-
-<input type="button" value="Press Me" id="submit" name="submit" onclick="javascript:alert('you clicked me!');">
+	<!-- input fields chooser -->
+	<fieldset>
+		<legend>Choose the fields</legend>
+		<p><label for="email">Email</label>
+		<input type="checkbox" name="email" id="email" value="Email" onclick="countTheFields();"></p>
+		<p><label for="first_name">First Name</label>
+		<input type="checkbox" name="first_name" id="first_name" value="First Name" onclick="countTheFields();"></p>
+		<p><label for="last_name">Last Name</label>
+		<input type="checkbox" name="last_name" id="last_name" value="Last Name" onclick="countTheFields();"></p>
+		<p><label for="zip_code">Zip Code</label>
+		<input type="checkbox" name="zip_code" id="zip_code" value="Zip Code" onclick="countTheFields();"></p>
+		<p id="error_msg"></p>
+	</fieldset>
+	<fieldset>
+		<input type="hidden" value="" id="checked_num" name="checked_num">
+		<input type="submit" value="Press Me" id="submit" name="submit">
+	</fieldset>
+</form>
+</body>
+</html>
