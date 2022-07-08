@@ -13,31 +13,44 @@
 			document.getElementById("checked_num").value = this_var;
 			console.log(this_var);
 			unchecked_array = "";
-			
+
 			if(document.getElementById("landscape_m").checked) {
 				if(this_var >= 2) {
 					unchecked_array = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
 					for(i = 0; i < unchecked_array.length; i++) {
-						document.getElementById(unchecked_array[i].id).disabled = true;
+						if(document.getElementById(unchecked_array[i].id) !== "email_dummy") {
+							document.getElementById(unchecked_array[i].id).disabled = true;
+						}
 					}
 					document.getElementById("error_msg").innerHTML = "<span style=\"color:red;font-weight:bold;\">You have chosen landscape format. You may only choose a maximum of two input fields</span>";
 				}
 				else {
 					unchecked_array = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
 					for(i = 0; i < unchecked_array.length; i++) {
-						document.getElementById(unchecked_array[i].id).disabled = false;
+						if(document.getElementById(unchecked_array[i].id) !== "email_dummy") {
+							document.getElementById(unchecked_array[i].id).disabled = false;
+						}
 					}
 					document.getElementById("error_msg").innerHTML = "";
 				}
 			}
+			else {
+				if(this_var > 3) {
+					document.getElementById("advert_text").disabled = true;
+				}
+				else {
+					document.getElementById("advert_text").disabled = false;
+				}
+			}
 		}
-		
+
 		function uncheckAll() {
 			this_var = document.querySelectorAll('input[type="checkbox"]:checked');
-			
+
 			for(x = 0; x < this_var.length; x++) {
 				document.getElementById(this_var[x].id).checked = false;
 			}
+			document.getElementById("email_dummy").checked = "checked";
 		}
 	</script>
 	</head>
@@ -52,29 +65,38 @@
 		<input type="radio" value="320x480" id="portrait_m" name="ad_size" onclick="uncheckAll();"></p>
 	</fieldset>
 	<fieldset>
-		<legend>Input image name:</legend>
-		<p><input type="text" id="image_name1" value="" placeholder="image variable name from sfg" name="image_name1" size="30"></p>
+		<legend>Input image type:</legend>
+		<p><label for="jpg">JPG</label><input type="radio" id="jpg" name="image_type" value="JPG"><br>
+			<label for="png">PNG</label><input type="radio" id="png" name="image_type" value="PNG"></p>
 	</fieldset>
 	<fieldset>
 		<legend>Advertiser Text:</legend>
 		<textarea id="advert_text" name="advert_text" rows="3" cols="50"></textarea>
+	</fieldset>
+	<fieldset>
+		<legend>Variables:</legend>
+		<p><label for="advertiser_variable">Advertiser variable</label><input id="advertiser_variable" name="advertiser_variable" value="" placeholder="Advertiser variable"></p>
+		<p><label for="advertiser_variable">Creative variable</label><input id="creative_variable" name="creative_variable" value="" placeholder="Creative variable"></p>
 	</fieldset>
 
 	<!-- input fields chooser -->
 	<fieldset>
 		<legend>Choose the fields</legend>
 		<p><label for="email">Email</label>
-		<input type="checkbox" name="email" id="email" value="Email" onclick="countTheFields();"></p>
+		<input type="checkbox" name="email_dummy" id="email_dummy" value="Email_dummy" onclick="countTheFields();" checked disabled> <span style="color:#f00;">required</span>
+		<input type="hidden" name="email" value="Email" id="email"></p>
 		<p><label for="first_name">First Name</label>
-		<input type="checkbox" name="first_name" id="first_name" value="First Name" onclick="countTheFields();"></p>
+		<input type="checkbox" name="first_name" id="first_name" value="First name" onclick="countTheFields();"></p>
 		<p><label for="last_name">Last Name</label>
-		<input type="checkbox" name="last_name" id="last_name" value="Last Name" onclick="countTheFields();"></p>
+		<input type="checkbox" name="last_name" id="last_name" value="Last name" onclick="countTheFields();"></p>
+		<p><label for="your_name">Your Name</label>
+		<input type="checkbox"  name="your_name" id="your_name" value="Your name" onclick="countTheFields();"></p>
 		<p><label for="zip_code">Zip Code</label>
 		<input type="checkbox" name="zip_code" id="zip_code" value="Zip Code" onclick="countTheFields();"></p>
 		<p id="error_msg"></p>
 	</fieldset>
 	<fieldset>
-		<input type="hidden" value="" id="checked_num" name="checked_num">
+		<input type="hidden" value="1" id="checked_num" name="checked_num">
 		<input type="submit" value="Press Me" id="submit" name="submit">
 	</fieldset>
 </form>
