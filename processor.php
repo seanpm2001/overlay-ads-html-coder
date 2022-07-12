@@ -87,7 +87,7 @@ $template = <<<'TEMPLATE'
     %8$s
          <td align="left" valign="bottom">
         %9$s
-    <form action="https://link.motherjones.com/s" method="post" onsubmit="return MJ_checkOverlay(this);"> <!-- Currently pointing at the live site's link; use "Preview" in DFP for tests. If you'd like to test on develop.motherjones.com change to http://linkdev.motherjones.com/s !-->
+    <form action="https://link.motherjones.com/s" method="post" onsubmit="return MJ_checkOverlay(this);" style="margin-top:0;"> <!-- Currently pointing at the live site's link; use "Preview" in DFP for tests. If you'd like to test on develop.motherjones.com change to http://linkdev.motherjones.com/s !-->
 
       <!-- Email !-->
 
@@ -172,10 +172,10 @@ function prepareHTML($type, $the_template, $buttons, $checked_num,$advert_text, 
         echo "portrait you have picked, you have";
         $width = "320";
         $height = "480";
-        $btn_length = $length = "265px;";
-        $margin_left_top = "margin-left: 27px;margin-top: 35px;margin-right: 27px;";
+        $btn_length = $length = "260px;";
+        $margin_left_top = "margin-left: 20px;margin-top: 30px;margin-right: 27px;";
         $button_margin_bottom = "margin-bottom: 25px;";
-        $ads_text = "<p style=\"font-size: 18px; font-family: Mallory Light; line-height: 1.5;margin-left: 20px; margin-top: 0;padding-right:20px; width:265px;\">" . $ads_text . "</p>";
+        $ads_text = "<p style=\"font-size: 18px; font-family: Mallory Light; line-height: 1.5;margin-left: 20px; margin-top: 0;padding-right:20px; width:260px;\">" . $ads_text . "</p>";
     }
 
     if($buttons["first_name"] !== null) {
