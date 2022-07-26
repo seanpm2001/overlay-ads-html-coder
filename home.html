@@ -22,7 +22,7 @@
 							document.getElementById(unchecked_array[i].id).disabled = true;
 						}
 					}
-					document.getElementById("error_msg").innerHTML = "<span style=\"color:red;font-weight:bold;\">You have chosen landscape format. You may only choose a maximum of two input fields</span>";
+					document.getElementById("error_msg").innerHTML = "<span style=\"color:red;font-weight:bold;\">In landscape format, you cannot have more than two input fields selected.</span>";
 				}
 				else {
 					unchecked_array = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
@@ -35,11 +35,25 @@
 				}
 			}
 			else {
-				if(this_var > 3) {
+				if(this_var >= 4) {
 					document.getElementById("advert_text").disabled = true;
+					unchecked_array = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
+					for(i = 0; i < unchecked_array.length; i++) {
+						if(document.getElementById(unchecked_array[i].id) !== "email_dummy") {
+							document.getElementById(unchecked_array[i].id).disabled = true;
+						}
+					}
+					document.getElementById("error_msg").innerHTML = "<span style=\"color:red;font-weight:bold;\">In portrait format, you cannot have more than four fields selected (including the default email field).</span>";
 				}
 				else {
 					document.getElementById("advert_text").disabled = false;
+					unchecked_array = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
+					for(i = 0; i < unchecked_array.length; i++) {
+						if(document.getElementById(unchecked_array[i].id) !== "email_dummy") {
+							document.getElementById(unchecked_array[i].id).disabled = false;
+						}
+					}
+					document.getElementById("error_msg").innerHTML = "";
 				}
 			}
 		}
