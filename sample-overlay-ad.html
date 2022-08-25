@@ -1,0 +1,79 @@
+
+    <script type="text/javascript">
+      function MJ_checkOverlay(form) {
+      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+      var address = form.ads_survey_email.value;
+      if(reg.test(address) !== false) {
+        form.method = "post";
+        return true;
+      }
+      else {
+        alert("Please enter a valid email address.");
+        form.ads_survey_email.focus();
+        return false;
+      }
+    }
+    </script>
+    <style type="text/css">
+    <!--
+    #container {
+      margin:0;
+      padding:0;
+      z-index:20000001;
+    }
+    #container p, #container  ul, #container  table, #container fieldset {margin: 0;}
+		div#DFP_OVERLAY_LAYER {transform:
+    translate3d(0,0,0);
+    position:fixed;
+    width:640px;
+    height: 480px;
+    z-index:20000002;
+    background-color: #FFFFFF;
+    -->
+    </style>
+
+		<table id="DFP_OVERLAY_LAYER" align="center" width="640" height="480" style="margin: 0;background-color: #f2f3ef; padding: 0px;border-spacing: 0;" border="0" cellpadding="0" cellspacing="0">
+    <tr style="height:380px;">
+
+        <td valign="top" style="align:center;">
+            <img src="%%FILE:PNG1%%" style="width:640px; height: 380px;" />
+        </td>
+    </tr><tr>
+         <td style="text-align:center;">
+
+    <form action="https://link.motherjones.com/s" method="post" onsubmit="return MJ_checkOverlay(this);" style="margin-top:0;margin-bottom: 0;text-align:center;"> <!-- Currently pointing at the live site's link; use "Preview" in DFP for tests. If you'd like to test on develop.motherjones.com change to http://linkdev.motherjones.com/s !-->
+
+      <!-- Email !-->
+      <input include_blank="true" name="email"xds id="ads_survey_email" value="" type="text" style="margin-left:10px;max-width: 218px;border:1px solid #707070;height:43px;color:#bfbfbf; text-align: left; font: normal normal 100 18px/26px Mallory;padding-left:10px;" placeholder="Email address">
+
+      <input data-type="string" type="text" name="vars[ads_Survey_postal_code]" id="ads_survey_postal_code" value="Zip code" style="margin-left:10px;max-width: 218px;border:1px solid #707070;height:43px;color:#bfbfbf; text-align: left; font: normal normal 100 18px/26px Mallory;padding-left:10px;" placeholder="Zip code">
+
+      <button style="margin-left:10px;color:#fff; background: #000000 0% 0% no-repeat padding-box; border-radius: 6px; opacity: 1; width: 120px;; height: 43px; font: normal normal bold 18px/26px Mallory;">Submit</button>
+
+      <input include_blank="true" type="hidden" name="lists[ads_SurveyList_forClients]" data-type="boolean" value="true" />
+
+      <input type="hidden" id="st_timestamp" name="vars[ads_Survey_ran22_test_AdVar_Timestamp]" value="temp" data-type="date" style="display: none;"/>
+
+      <input type="hidden" name="redirect" value="https://www.motherjones.com/thank-you-embed/">
+
+        <input type="hidden" name="vars[ads_Surveyran22_test_AdVar_orangutan]" value="true" /> <!--IMPORTANT: Put the name of the identifying variable here !-->
+
+    </form>
+
+       </td>
+    </tr>
+        </table>
+
+    <script type="text/javascript">
+
+     function dateConverter(UNIX_timestamp){
+      let dateConversion = new Date().toISOString();
+      var dateConversionString = dateConversion.toString();
+     var shortenedDate = dateConversionString.slice(0,10);
+      return shortenedDate;
+    }
+
+    document.getElementById("st_timestamp").value = dateConverter(Date.now());
+
+    </script>

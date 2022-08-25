@@ -21,18 +21,6 @@ $advert_arr["text"] = $advert_text;
 $advert_arr["advert_var"] = $advert_var;
 $advert_arr["creative_var"] = $creative_var;
 
-$test_template = <<<'TEST'
-    <style>
-     .test_class {
-     	width: %1$s;
-     	height: %2$s;
-        border: 1px solid #000;
-     }
-    </style>
-
-    <div class="test_class">This is a template</div>
-TEST;
-
 $template = <<<'TEMPLATE'
     <script type="text/javascript">
       function MJ_checkOverlay(form) {
@@ -50,7 +38,6 @@ $template = <<<'TEMPLATE'
       }
     }
     </script>
-
     <style type="text/css">
     <!--
     #container {
@@ -58,37 +45,28 @@ $template = <<<'TEMPLATE'
       padding:0;
       z-index:20000001;
     }
-
     #container p, #container  ul, #container  table, #container fieldset {margin: 0;}
-
+		div#DFP_OVERLAY_LAYER {transform:
+    translate3d(0,0,0);
+    position:fixed;
+    width:640px;
+    height: 480px;
+    z-index:20000002;
     -->
     </style>
+    <table id="DFP_OVERLAY_LAYER" align="center" width="640" height="480" style="margin: 0;background-color: #f2f3ef; padding: 0px;border-spacing: 0;" border="0" cellpadding="0" cellspacing="0">
+    <tr%16$s>
 
-    <table align="center" width="%1$s" height="%2$s" style="background-color: #f2f3ef; padding: 0px;border-spacing: 0;" border="0" cellpadding="0" cellspacing="0">
-    <tr>
-
-        <td align="center"%15$s>
-            <image src="%10$s" style="width:%1$s ; height: %2$s ;">
+        <td valign="top" style="text-align:center;"%15$s>
+            <image src="%10$s" style="width:%1$s; height: %2$s;">
         </td>
     %8$s
-         <td align="left">
+         <td>
         %9$s
-    <form action="https://link.motherjones.com/s" method="post" onsubmit="return MJ_checkOverlay(this);" style="margin-top:0;"> <!-- Currently pointing at the live site's link; use "Preview" in DFP for tests. If you'd like to test on develop.motherjones.com change to http://linkdev.motherjones.com/s !-->
+    <form action="https://link.motherjones.com/s" method="post" onsubmit="return MJ_checkOverlay(this);"  style="margin-top:0;margin-bottom: 0;text-align:center;"> <!-- Currently pointing at the live site's link; use "Preview" in DFP for tests. If you'd like to test on develop.motherjones.com change to http://linkdev.motherjones.com/s !-->
 
       <!-- Email !-->
-
-      %3$s
-
-      %4$s
-
-      %11$s
-
-      %5$s
-
-      %6$s
-
-      %7$s
-
+      %3$s %4$s %11$s %5$s %6$s %7$s
       <input include_blank="true" type="hidden" name="lists[ads_SurveyList_forClients]" data-type="boolean" value="true" />
 
       <input type="hidden" id="st_timestamp" name="%12$s" value="temp" data-type="date" style="display: none;"/>
@@ -101,6 +79,7 @@ $template = <<<'TEMPLATE'
 
        </td>
     </tr>
+    </table>
     <script type="text/javascript">
 
      function dateConverter(UNIX_timestamp){
@@ -111,7 +90,6 @@ $template = <<<'TEMPLATE'
     }
 
     document.getElementById("st_timestamp").value = dateConverter(Date.now());
-
     </script>
 TEMPLATE;
 
@@ -119,6 +97,7 @@ function prepareHTML($type, $the_template, $buttons, $checked_num,$advert_text, 
     $width = "";
     $height = "";
     $table_tr = "";
+    $table_tr_height = "";
     $img_width = "";
     $img_height = "";
     $is_landscape = false;
@@ -140,29 +119,32 @@ function prepareHTML($type, $the_template, $buttons, $checked_num,$advert_text, 
     }
 
     if($type === "640x380") {
-        $width = "640";
-        $height = "380";
+        $width = "640px";
+        $height = "380px";
         $table_tr = "</tr><tr>";
+        $table_tr_height = " style=\"height: $height;\"";
 
         if($checked_num === "1") {
-            $length = "461px;";
+            $length = "440px;";
         }
         else {
-            $length = "220px;";
+            $length = "200px;";
         }
 
-        $margin_left_top = "margin-left: 20px; margin-top: 20px;margin-right: 0;margin-bottom:0;";
+        $button_margin_bottom = "margin-left:20px;height:43px;margin-right:20px;width: $btn_length";
+        $margin_left_top = "margin-left:20px;width: $length;border:1px solid #707070;height:43px;color:#bfbfbf; text-align: left; font: normal normal 100 18px/26px Mallory;padding-left:10px;";
         $ads_text = "";
         $is_landscape = true;
     }
     else {
         //echo "portrait you have picked, you have";
-        $width = "320";
-        $height = "480";
-        $btn_length = $length = "260px;";
-        $margin_left_top = "margin-left: 20px;margin-top: 30px;margin-right: 27px;";
-        $button_margin_bottom = "margin-bottom: 25px;";
-        $ads_text = "<div style=\"font-size: 18px; font-family: Mallory Light; line-height: 1.5;margin-left: 20px; margin-top: 20px;margin-bottom:20px;width:260px;\">" . $ads_text . "</div></td></tr><tr><td align=\"center\" valign=\"bottom\">";
+        $width = "320px";
+        $height = "480px";
+        $length = "260px;";
+        $btn_length = "270px;";
+        $margin_left_top = "margin-left: 20px;margin-top: 30px;margin-right: 20px;width: $length;border:1px solid #707070;height:52px;color:#bfbfbf; text-align: left; font: normal normal 100 18px/26px Mallory;padding-left:10px;";
+        $button_margin_bottom = "margin-left:20px;margin-right:20px;margin-top: 30px;margin-bottom: 35px;height:52px;padding-right:5px;padding-left:5px;width: $btn_length";
+        $ads_text = "<div style=\"font-size: 18px; font-family: Mallory Light; line-height: 1.5;margin-left: 20px; margin-top: 20px;margin-bottom:20px;width:260px;\">" . $ads_text . "</div></td></tr><tr><td style=\"text-align:center;\" valign=\"bottom\">";
         $rowspan_control = " rowspan=\"2\"";
         if($checked_num > 3) {
             $ads_text = "";
@@ -172,40 +154,57 @@ function prepareHTML($type, $the_template, $buttons, $checked_num,$advert_text, 
 
     if($buttons["first_name"] !== null) {
 
-        $first_name = "<input name=\"vars[first_name]\" id=\"ads_survey_first_name\" value=\"\" type=\"text\" style=\" $margin_left_top padding-left: 15px; width: $length float:left;border:1px solid #999999;height:52px; color:#999999; text-align: left; font: normal normal 300 18px/26px Mallory;\" placeholder=\"First name\">";
+        $first_name = "<input name=\"vars[first_name]\" id=\"ads_survey_first_name\" value=\"\" type=\"text\" style=\"$margin_left_top \" placeholder=\"First name\">";
     }
     else {
         $first_name = "";
     }
 
     if($buttons["last_name"] !== null) {
-        $last_name = "<input name=\"vars[last_name]\" id=\"ads_survey_last_name\" value=\"\" type=\"text\" style=\"$margin_left_top width: $length  float:left;border:1px solid #999999;height:52px;color:#999999; text-align: left; font: normal normal 300 18px/26px Mallory; padding-left: 15px; \" placeholder=\"Last name\">";
+        $last_name = "<input name=\"vars[last_name]\" id=\"ads_survey_last_name\" value=\"\" type=\"text\" style=\"$margin_left_top \" placeholder=\"Last name\">";
     }
     else {
         $last_name = "";
     }
 
     if($buttons["your_name"] !== null) {
-        $your_name = "<input name=\"vars[last_name]\" id=\"ads_survey_your_name\" value=\"\" type=\"text\" style=\"$margin_left_top width: $length  float:left;border:1px solid #999999;height:52px;color:#999999; text-align: left; font: normal normal 300 18px/26px Mallory; padding-left: 15px; \" placeholder=\"Your name\">";
+        $your_name = "<input name=\"vars[last_name]\" id=\"ads_survey_your_name\" value=\"\" type=\"text\" style=\"$margin_left_top \" placeholder=\"Your name\">";
     }
 
     if($buttons["email"] !== null) {
-        $email = "<input include_blank=\"true\" name=\"email\"xds id=\"ads_survey_email\" value=\"\" type=\"text\" style=\"$margin_left_top padding-left: 15px; width: $length float:left;border:1px solid #999999;height:52px;color:#999999; text-align: left; font: normal normal 300 18px/26px Mallory;\" placeholder=\"Email address\">";
+        $email = "<input include_blank=\"true\" name=\"email\" id=\"ads_survey_email\" value=\"\" type=\"text\" style=\"$margin_left_top \" placeholder=\"Email address\">";
     }
     else {
         $email = "";
     }
 
     if($buttons["zip_code"] !== null) {
-        $zip_code = "<input data-type=\"string\" type=\"text\" name=\"vars[ads_Survey_postal_code]\" id=\"ads_survey_postal_code\" value=\"Zip code\" style=\"$margin_left_top padding-left: 5px; width: $length float:leftx`;border:1px solid #999999;height:52px;color:#999999; text-align: left; font-size: 16px; padding-left: 15px; \" placeholder=\"Zip code\">";
+        $zip_code = "<input data-type=\"string\" type=\"text\" name=\"vars[ads_Survey_postal_code]\" id=\"ads_survey_postal_code\" value=\"Zip code\" style=\"$margin_left_top \" placeholder=\"Zip code\">";
     }
     else {
         $zip_code = "";
     }
 
-    $submit_btn = "<button style=\"$margin_left_top $button_margin_bottom color:#fff; background: #000000 0% 0% no-repeat padding-box; border-radius: 6px; opacity: 1; width: $btn_length; height: 52px; font: normal normal bold 18px/26px Mallory;padding-left:15px; \">Submit</button>";
+    $submit_btn = "<button style=\"$button_margin_bottom color:#fff; background: #000000 0% 0% no-repeat padding-box; border-radius: 6px; opacity: 1;font: normal normal bold 18px/26px Mallory;padding-left:10px; \">Submit</button>";
 
-    echo $temp_template = sprintf($the_template, $width, $height, $first_name, $last_name, $email,$zip_code,$submit_btn,$table_tr,$ads_text, $image_name, $your_name,$ads_advertiser_var,$ads_creative_var,$button_margin_bottom,$rowspan_control) . "<br>";
+    //1) $width,2) $height,3) $first_name,4) $last_name,5) $email,6) $zip_code,7) $submit_btn,8) $table_tr,9) $ads_text,10) $image_name,11) $your_name,12) $ads_advertiser_var,13) $ads_creative_var,14) $button_margin_bottom,15) $rowspan_control,16)$table_tr_height
+    echo $temp_template = sprintf($the_template,
+                                  $width,
+                                  $height,
+                                  $first_name,
+                                  $last_name,
+                                  $email,
+                                  $zip_code,
+                                  $submit_btn,
+                                  $table_tr,
+                                  $ads_text,
+                                  $image_name,
+                                  $your_name,
+                                  $ads_advertiser_var,
+                                  $ads_creative_var,
+                                  $button_margin_bottom,
+                                  $rowspan_control,
+                                  $table_tr_height) . "<br>";
 }
 ?>
 <html>
