@@ -144,7 +144,7 @@ function prepareHTML($type, $the_template, $buttons, $checked_num,$advert_text, 
         $btn_length = "270px;";
         $margin_left_top = "margin-left: 20px;margin-top: 30px;margin-right: 20px;width: $length;border:1px solid #707070;height:52px;color:#bfbfbf; text-align: left; font: normal normal 100 18px/26px Mallory;padding-left:10px;";
         $button_margin_bottom = "margin-left:20px;margin-right:20px;margin-top: 30px;margin-bottom: 35px;height:52px;padding-right:5px;padding-left:5px;width: $btn_length";
-        $ads_text = "<div style=\"font-size: 18px; font-family: Mallory Light; line-height: 1.5;margin-left: 20px; margin-top: 20px;margin-bottom:20px;width:260px;\">" . $ads_text . "</div></td></tr><tr><td style=\"text-align:center;\" valign=\"bottom\">";
+        $ads_text = "<div style=\"font-size: 18px; font-family: Mallory Light; line-height: 1.5;margin-left: 20px; margin-top: 20px;margin-bottom:10px;width:260px;\">" . $ads_text . "</div></td></tr><tr><td style=\"text-align:center;\" valign=\"bottom\">";
         $rowspan_control = " rowspan=\"2\"";
         if($checked_num > 3) {
             $ads_text = "";
