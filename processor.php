@@ -57,6 +57,19 @@ $template = <<<'TEMPLATE'
     width:640px;
     height: 480px;
     z-index:20000002;
+
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #999;
+        opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: #999;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        color: #999;
+    }
     -->
     </style>
     <table id="DFP_OVERLAY_LAYER" align="center" width="640" height="480" style="margin: 0;background-color: #f2f3ef; padding: 0px;border-spacing: 0;" border="0" cellpadding="0" cellspacing="0">
@@ -156,7 +169,7 @@ function prepareHTML($type, $the_template, $buttons, $checked_num,$advert_text, 
         $btn_length = "270px;";
         $margin_left_top = "margin-left: 20px;margin-bottom: 20px;margin-right: 20px;width: $length;border:1px solid #707070;height:52px;color:#bfbfbf; text-align: left; font: normal normal 100 18px/26px Mallory;padding-left:10px;";
         $button_margin_bottom = "margin-left:20px;margin-right:20px;margin-bottom: 20px;height:52px;padding-right:5px;padding-left:5px;width: $btn_length";
-        $ads_text = "<div style=\"font-size: 18px; font-family: Mallory Light; line-height: 1.5;margin-left: 20px; margin-top: 20px;margin-bottom10px;width:260px;\">" . $ads_text . "</div></td></tr><tr><td style=\"text-align:center;\" valign=\"middle\">";
+        $ads_text = "<div style=\"font-size: 18px; font-family: Mallory Light; line-height: 1.5;margin-left: 27px; margin-top: 20px;margin-bottom10px;width:260px;\">" . $ads_text . "</div></td></tr><tr><td style=\"text-align:center;\" valign=\"middle\">";
         $rowspan_control = " rowspan=\"2\"";
         if($checked_num > 3) {
             $ads_text = "";
@@ -197,14 +210,14 @@ function prepareHTML($type, $the_template, $buttons, $checked_num,$advert_text, 
 
     //zip code field
     if($buttons["zip_code"] !== null) {
-        $zip_code = "<input data-type=\"string\" type=\"text\" name=\"vars[ads_Survey_postal_code]\" id=\"ads_survey_postal_code\" value=\"Zip code\" style=\"$margin_left_top \" placeholder=\"Zip code\">";
+        $zip_code = "<input data-type=\"string\" type=\"text\" name=\"vars[ads_Survey_postal_code]\" id=\"ads_survey_postal_code\" value=\"\" style=\"$margin_left_top \" placeholder=\"Zip code\">";
     }
     else {
         $zip_code = "";
     }
 
     //submit button (unlike the other input fields, this was made into a button component)
-    $submit_btn = "<button style=\"$button_margin_bottom color:#fff; background: #000000 0% 0% no-repeat padding-box; border-radius: 6px; opacity: 1;font: normal normal bold 18px/26px Mallory;padding-left:10px; \">Submit</button>";
+    $submit_btn = "<button style=\"$button_margin_bottom color:#fff; background: #000000 0% 0% no-repeat padding-box; border:none;border-radius: .375rem; opacity: 1;font: normal normal bold 18px/26px Mallory;padding-left:10px; \">Submit</button>";
 
     //to keep track of all the variables passed to the sprintf function, I made a list below to keep track off all of them. At least most of the variables are self-descriptive
     //1) $width,2) $height,3) $first_name,4) $last_name,5) $email,6) $zip_code,7) $submit_btn,8) $table_tr,9) $ads_text,10) $image_name,11) $your_name,12) $ads_advertiser_var,13) $ads_creative_var,14) $button_margin_bottom,15) $rowspan_control,16)$table_tr_height
